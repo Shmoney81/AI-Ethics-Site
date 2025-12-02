@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Energy & Water Impact</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { margin: 0; font-family: 'Arial', sans-serif; background: white; color: #222; scroll-behavior: smooth; }
+    h1, h2 { text-align: center; }
+    section { padding: 60px 20px; margin: auto; }
+    .hero { 
+        background: url("images/dataCenter.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        color: white;
+        padding: 120px 20px;
+        text-align: center;
+        position: relative; 
+    }
+    .hero-credit { position: absolute; bottom: 10px; right: 10px; font-size: 0.75em; color: rgba(255, 255, 255, 0.8); text-shadow: 1px 1px 2px rgba(0,0,0,0.6); }
+    .hero-content { background: rgba(200, 200, 200, 0.25); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 30px 40px; border-radius: 20px; max-width: 700px; margin: auto; }
+    .hero h1 { font-size: 3em; margin-bottom: 20px; }
+    .hero p { font-size: 1.3em; max-width: 700px; margin: auto; }
+    canvas { border-radius: 10px; padding: 20px; margin: 40px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    section { background: white; }
+    .water, .solution { background:#f4f4f4; }
+    .caption { text-align: center; font-size: 1em; color: #555; max-width: 800px; margin: 10px auto 40px auto; }
+    .caption p { text-align: center; margin: 0; }
+    .ethics { background: white;; padding: 40px 20px; border-radius: 10px; text-align: left !important; }
+    .ethics p { max-width: 700px; margin: auto; font-size: 1.1em; }
+    .sources { font-size: 0.9em; color: #555; text-align: center; }
+    .sources a { color: #ff4e50; text-decoration: none; }
+    .sources ul { list-style-type: none; padding: 0; }
+    .chart-row { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; margin-top: 40px; }
+    .chart-text { flex: 1; min-width: 250px; font-size: 1.1em; line-height: 1.5em; color: #333; }
+    .chart-box { flex: 1.5; min-width: 300px; }
+    .solution p { max-width: 700px; margin: 20px auto; font-size: 1.1em; line-height: 1.6em; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-credit">Credit: Vantage</div>
+    <div class="hero-content">
+      <h1>The Threat of AI</h1>
+      <p>AI models are consuming unprecedented amounts of electricity and water. If we continue to prioritize speed over efficiency, the environmental cost will skyrocket, threatening the right to clean air and water for future generations.</p>
+    </div>
+  </section>
+
+  <!-- Electricity Use Section -->
+  <section>
+    <h2>Electricity Usage of AI Models</h2>
+    <div class="chart-row">
+      <div class="chart-text">
+        <p>The existing chips used to train and run AI models prioritize speed over efficiency.
+            In 2024, US data centers consumed 183 TWh of electricity, enough to power a small country for a year (Pew, 2025).
+            If AI use continues to scale without efficiency improvements, power grids will be overwhelmed.
+            However, if energy-efficient chips are prioritized, elecricity consumption can be more than halved, even by conservative projections.
+        </p>
+      </div>
+      <div class="chart-box">
+        <canvas id="electricityChart"></canvas>
+        <div class="caption">Projected electricity consumption as AI scales. Sources: IEA (2023), Patterson et al., Stanford (2021)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Water Usage Section -->
+  <section class="water">
+    <h2>Water Usage of AI Models</h2>
+    <div class="chart-row reverse">
+      <div class="chart-box">
+        <canvas id="waterChart"></canvas>
+        <div class="caption">Projected water consumption as AI scales. Sources: Intel (2023), TSMC (2023), NVIDIA Technical Sheets</div>
+      </div>
+      <div class="chart-text">
+        <p>In order to cool the processors, data centers use clean, fresh water.
+            In 2023, data centers in the US alone used approximately 17 billion gallons of water,
+            enough to supply about 155,000 households for a year (Pew, 2025). However, that is not
+            the extent of the water impact. Because data centers draw electricity from power grids,
+            which also use fresh water for cooling and power generation, the total water footprint is much larger.
+            By switching to energy-efficient chips, less heat will be produced, and water consumption can be
+            significantly reduced, not only through direct consumption but also indirectly through electricity use.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ethical Considerations -->
+  <section class="ethics">
+    <h2>Ethical Considerations</h2>
+    <div class="chart-row">
+      <div class="chart-text">
+        <p>Due to the massive amount of electricity consumed by data centers, and the fact that
+            most electricity is still generated from fossil fuels, AI contributes significantly
+            to carbon emissions. This means that the rapid scaling of AI has serious ethical implications,
+            not only violating the right to clean water, but also to clean air. Given that energy-efficient
+            chips are predicted to more than halve the electricity consumption of AI models, the carbon
+            emissions will follow suit. Prioritizing efficiency over speed is not just a technical choice,
+            but an ethical imperative.
+        </p>
+      </div>
+      <div class="chart-box">
+        <canvas id="carbonChart"></canvas>
+        <div class="caption">Estimated carbon emissions per model training. Sources: IEA (2023), NVIDIA, Academic Scaling Studies</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Solution Section -->
+  <section class="solution">
+    <h2>Our Solution: Two-Sided AI Tax</h2>
+    <div class="chart-row reverse">
+      <div class="chart-box">
+        <canvas id="greenTaxChart"></canvas>
+        <div class="caption">Historical impact of environmental taxes on emissions/energy use. Hypothetical projection for AI chip efficiency included. Sources: Sweden Carbon Tax, UK Carbon Pricing.</div>
+      </div>
+      <div class="chart-text">
+        <p>Without government intervention, chip-makers have no reason to prioritize energy-efficiency
+            over speed. To address this and improve the quality of life for future generations,
+            we propose a two-sided AI tax. By rewarding chip-makers that produce energy-efficient chips
+            and taxing those that produce speed-prioritized chips, we can create a market incentive
+            for efficiency. Historical data from countries that have implemented environmental taxes show
+            significant reductions in emissions and energy use. By applying a similar approach to AI chips,
+            we can drive innovation towards more sustainable technologies, ensuring that the growth of AI
+            does not come at the expense of our planet's health.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="sources">
+    <h2>Sources & References</h2>
+    <ul>
+      <li>IEA (2023). "Electricity 2023"</li>
+      <li>Intel (2023). Corporate Responsibility Report</li>
+      <li>NVIDIA (2023–2024). GPU power consumption</li>
+      <li>Patterson et al. (2021). Stanford AI Carbon Study</li>
+      <li>Pew Research Center (2025). Data Center Energy Use</li>
+      <li>Sweden Carbon Tax, UK Carbon Pricing</li>
+      <li>TSMC (2023). ESG Report</li>
+    </ul>
+  </section>
+
+  <!-- Chart JS Scripts -->
+  <script>
+    // Chart configurations with initial empty datasets
+    const chartConfigs = [
+      {
+        ctx: 'electricityChart',
+        type: 'line',
+        labels: [10000,20000,40000,60000,80000,100000],
+        dataSets: [
+          { label:'Speed-Prioritized Chips (MWh)', data:[12870,25740,51480,77220,102960,128700], borderColor:'#ff4e50', backgroundColor:'rgba(255,78,80,0.2)', tension:0.4 },
+          { label:'Energy-Efficient Chips (MWh)', data:[6435,12870,25740,38610,51480,64350], borderColor:'#00bfa5', backgroundColor:'rgba(0,191,165,0.2)', tension:0.4 }
+        ],
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'top' }, title: { display: true, text: 'Electricity Consumption as AI Scales' } },
+            scales: { 
+                x: { title: { display: true, text: 'Numer of AI Models Deployed' } },
+                y: { title: { display: true, text: 'Electricity Use (MWh)' } } 
+            },
+            animation: {
+                x: { 
+                  duration: 2000,      // 2 seconds to draw left→right
+                  easing: 'easeOutQuart'
+                },
+                y: { 
+                  duration: 0          // Keep Y values instant so only X animates the drawing
+                }
+            }
+        }
+      },
+      {
+        ctx: 'waterChart',
+        type: 'line',
+        labels: [10000,20000,40000,60000,80000,100000],
+        dataSets: [
+          { label:'Speed-Prioritized Chips (million liters)', data:[2800,5600,11200,16800,22400,28000], borderColor:'#ff4e50', backgroundColor:'rgba(255,78,80,0.2)', tension:0.4 },
+          { label:'Energy-Efficient Chips (million liters)', data:[1400,2800,5600,8400,11200,14000], borderColor:'#00bfa5', backgroundColor:'rgba(0,191,165,0.2)', tension:0.4 }
+        ],
+        options: {
+          responsive:true,
+          plugins:{legend:{position:'top'}, title:{display:true,text:'Water Consumption as AI Scales'}},
+          scales:{x:{title:{display:true,text:'Number of AI Models Deployed'}}, y:{title:{display:true,text:'Water Use (million liters)'}}}
+        }
+      },
+      {
+        ctx:'carbonChart',
+        type:'bar',
+        labels:['Speed-Prioritized Chips','Energy-Efficient Chips'],
+        dataSets:[{label:'CO₂ Emissions (tons per model)', data:[493,246], backgroundColor:['#ff4e50','#00bfa5'] }],
+        options:{responsive:true, plugins:{legend:{display:false}, title:{display:true,text:'Carbon Emissions per Model Training'}}, scales:{y:{title:{display:true,text:'CO₂ Emissions (tons)'}, beginAtZero:true}}}
+      },
+      {
+        ctx:'greenTaxChart',
+        type:'line',
+        labels:[0,1,2,3,4,5],
+        dataSets:[
+          {label:'Observed Emission Reduction (%)', data:[0,2,5,7,9,12], borderColor:'#ff4e50', backgroundColor:'rgba(255,78,80,0.2)', tension:0.3},
+          {label:'Projected AI Chip Efficiency Gain (%)', data:[0,1,3,5,7,10], borderColor:'#00bfa5', backgroundColor:'rgba(0,191,165,0.2)', tension:0.3}
+        ],
+        options:{responsive:true, plugins:{legend:{position:'top'}, title:{display:true,text:'Impact of Environmental Taxes & Projected AI Tax Effect'}}, scales:{x:{title:{display:true,text:'Years Since Implementation'}},y:{title:{display:true,text:'Percent Reduction / Gain (%)'}, beginAtZero:true}}}
+      }
+    ];
+
+    const chartInstances = [];
+
+    // Initialize charts with empty datasets (0 values) to show axes/grid immediately
+    chartConfigs.forEach((config)=>{
+      const ctx = document.getElementById(config.ctx).getContext('2d');
+      const emptyDataSets = config.dataSets.map(ds=>({...ds, data: ds.data.map(()=>0)}));
+      const chart = new Chart(ctx,{
+        type: config.type,
+        data: {labels: config.labels, datasets: emptyDataSets},
+        options: {...config.options, animation:{duration:1500, easing:'easeOutCubic'}}
+      });
+      chart.realData = config.dataSets; // store actual data
+      chartInstances.push(chart);
+    });
+
+    // Animate datasets when chart enters viewport
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const chart = chartInstances.find(c=>c.canvas===entry.target);
+          if(chart && !chart.animated){
+            chart.data.datasets.forEach((ds,i)=>{
+              ds.data = chart.realData[i].data;
+            });
+            chart.update({duration:2000, easing:'easeOutQuart'});
+            chart.animated=true;
+          }
+        }
+      });
+    }, {threshold:0.5}); // 50% of chart visible
+
+    chartInstances.forEach(chart=>{
+      observer.observe(chart.canvas);
+    });
+  </script>
+</body>
+</html>
